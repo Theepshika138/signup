@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    color: #fff;
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background: url('wave-haikei.png') no-repeat;
+    background-size: cover;
+}
+
+.box{
+    width: 400px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 2px 2px 5px #89c9f3, -2px -2px 5px #89c9f3;
+    border-radius: 8px;
+    backdrop-filter: blur(8px);
+    padding: 20px 40px;
+}
+
+.signup-header h1{
+    font-size: 2.2rem;
+    text-align: center;
+    padding: 5px 8px;
+}
+
+.signup-body p{
+    margin-top: 20px;
+    position: relative;
+}
+.signup-body p i{
+    position: absolute;
+    top: 34px;
+    right: 16px;
+    color: #008000;
+    font-size: 22px;
+}
+.signup-body p span{
+    font-size: 18px;
+    font-weight: 600;
+    color: #90ee90;
+}
+.signup-body p label{
+    font-size: 18px;
+    font-weight: 600; 
+    cursor: pointer;
+}
+
+.signup-body p input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    margin-block: 4px;
+    border: none;
+    outline: none;
+    color: #000;
+}
+
+.signup-body p input[type="submit"]{
+    border: none;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.signup-body p input[type="submit"]:hover{
+    background-color: #2773a5;
+}
+
+.signup-footer p{
+    text-align: center;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.signup-footer p a{
+    text-decoration: none;
+}
+.signup-footer p a:hover{
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+          <header class="signup-header">
+            <h1>Signup</h1>
+          </header>
+          <main class="signup-body">
+            <form action="#">
+              <p>
+                <label for="name">Full Name</label>
+                <input type="text" placeholder="Type Name Here" id="name" />
+                <i class="fa-solid"></i>
+                <span id="nameError"></span>
+              </p>
+              <p>
+                <label for="email">Email</label>
+                <input type="email" placeholder="xyz@gmail.com" id="email" />
+                <i class="fa-solid"></i>
+                <span id="emailError"></span>
+              </p>
+              <p>
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  placeholder="at least 8 characters"
+                  id="password"
+                />
+                <i class="fa-solid"></i>
+                <span id="passError"></span>
+              </p>
+              <p>
+                <input type="submit" value="Create Account" id="submitBtn"/>
+              </p>
+            </form>
+          </main>
+          <footer class="signup-footer">
+            <p>Already have an account? <a href="">Login</a></p>
+          </footer>
+        </div>
+      </div>
+    
+
+      <script>
+        const submitBtn = document.getElementById('submitBtn');
+const nameError = document.getElementById('nameError');
+const emailError = document.getElementById('emailError');
+const passError = document.getElementById('passError');
+
+submitBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+
+    if(validateName() && validateEmail() && validatePassword()){
+        alert("Form Submitted Successfully");
+    }
+});
+
+
+function validateName(){
+    let name = document.getElementById('name').value;
+
+    if(name.length == 0){
+        nameError.innerHTML = "Name is required";
+        nameError.previousElementSibling.classList.add('fa-xmark');
+        return false;
+    }
+
+    if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)){
+        nameError.innerHTML = "Write full Name";
+        nameError.previousElementSibling.classList.add('fa-xmark');
+        return false;
+    }
+    nameError.innerHTML = "";
+    nameError.previousElementSibling.classList.add('fa-check');
+    return true;
+}
+
+function validateEmail(){
+    let email = document.getElementById('email').value;
+
+    if(email.length == 0){
+        emailError.innerHTML = "Email is required";
+        emailError.previousElementSibling.classList.add('fa-xmark');
+        return false;
+    }
+
+    if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)){
+        emailError.innerHTML = "Enter Valid Email";
+        emailError.previousElementSibling.classList.add('fa-xmark');
+        return false;
+    }
+    emailError.innerHTML = "";
+    emailError.previousElementSibling.classList.add('fa-check');
+    return true;
+}
+function validatePassword(){
+    let password = document.getElementById('password').value;
+
+    if(password.length == 0){
+        passError.innerHTML = "Password is required";
+        passError.previousElementSibling.classList.add('fa-xmark');
+        return false;
+    }
+
+    if(!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/)){
+        passError.innerHTML = "Password should contain 1 Uppercase, 1 Lowecase, 1 Digit & 1 Alphabet";
+        passError.previousElementSibling.classList.add('fa-xmark');
+        return false;
+    }
+    passError.innerHTML = "";
+    passError.previousElementSibling.classList.add('fa-check');
+    return true;
+}
+
+// Make a validateConfirmPassword function to validate it
+      </script>
+</body>
+</html>
